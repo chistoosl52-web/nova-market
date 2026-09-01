@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVA Market</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #111;
+    }
+
+    header {
+      height: 70px;
+      background: white;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      align-items: center;
+      padding: 0 6%;
+      gap: 35px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+      flex: 1;
+    }
+
+    nav a {
+      color: #666;
+      text-decoration: none;
+    }
+
+    .online {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .dot {
+      color: #20bd63;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 17px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .dark {
+      background: #111;
+      color: white;
+    }
+
+    .light {
+      background: #f0f1f3;
+    }
+
+    .hero {
+      max-width: 1150px;
+      margin: auto;
+      padding: 90px 25px;
+      display: grid;
+      grid-template-columns: 1.4fr .8fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: bold;
+      color: #888;
+    }
+
+    h1 {
+      font-size: 58px;
+      line-height: 1;
+      letter-spacing: -3px;
+      margin: 18px 0;
+    }
+
+    h1 span {
+      color: #777;
+    }
+
+    .hero p {
+      color: #666;
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    .hero-buttons {
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .hero-card {
+      background: #111;
+      color: white;
+      border-radius: 25px;
+      padding: 30px;
+      min-height: 280px;
+      box-shadow: 0 25px 60px #0002;
+    }
+
+    .hero-card .price {
+      font-size: 42px;
+      font-weight: bold;
+      margin-top: 60px;
+    }
+
+    section {
+      max-width: 1150px;
+      margin: auto;
+      padding: 70px 25px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      font-size: 35px;
+      margin: 10px 0;
+    }
+
+    .search {
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 230px;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .category {
+      background: white;
+      border: 1px solid #e2e3e6;
+    }
+
+    .category.active {
+      background: #111;
+      color: white;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 22px;
+    }
+
+    .product {
+      background: white;
+      border: 1px solid #e5e6e9;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .product-image {
+      height: 130px;
+      border-radius: 13px;
+      background: #f0f1f4;
+      display: grid;
+      place-items: center;
+      font-size: 40px;
+    }
+
+    .product h3 {
+      margin-bottom: 7px;
+    }
+
+    .muted {
+      color: #888;
+      font-size: 12px;
+    }
+
+    .product-price {
+      font-size: 21px;
+      font-weight: 800;
+      margin-top: 14px;
+    }
+
+    .buy {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .dark-section {
+      max-width: none;
+      background: #111;
+      color: white;
+    }
+
+    .dark-inner {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .feature {
+      border-top: 1px solid #333;
+      padding-top: 18px;
+    }
+
+    .feature p {
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: #0009;
+      display: grid;
+      place-items: center;
+      z-index: 20;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .modal-box {
+      width: min(420px, 90%);
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      background: none;
+      font-size: 28px;
+    }
+
+    .modal-box input {
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    .full {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px;
+      color: #999;
+    }
+
+    @media(max-width: 800px) {
+      nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 55px;
+      }
+
+      h1 {
+        font-size: 43px;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .search {
+        margin-top: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">◆ NOVA</div>
+
+  <nav>
+    <a href="#catalog">Каталог</a>
+    <a href="#about">Как работает</a>
+  </nav>
+
+  <div>
+    <span class="online">
+      <span class="dot">●</span>
+      <b id="online">0</b> онлайн
+    </span>
+
+    <button class="light" onclick="openAuth(false)">
+      Войти
+    </button>
+
+    <button class="dark" onclick="openAuth(true)">
+      Регистрация
+    </button>
+  </div>
+</header>
+
+
+<div class="hero">
+
+  <div>
+    <div class="label">DIGITAL MARKETPLACE</div>
+
+    <h1>
+      Покупай и продавай
+      <span>цифровые товары.</span>
+    </h1>
+
+    <p>
+      Современная площадка для цифровых товаров
+      с категориями, продавцами, заказами и безопасной
+      системой сделок.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="dark" onclick="goCatalog()">
+        Открыть каталог
+      </button>
+
+      <button class="light" onclick="openAuth(true)">
+        Стать продавцом
+      </button>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <div>✓ Безопасная сделка</div>
+
+    <div class="price">
+      ₽ 1 490
+    </div>
+
+    <p>
+      Оплата → проверка → передача товара
+    </p>
+  </div>
+
+</div>
+
+
+<section id="catalog">
+
+  <div class="section-head">
+
+    <div>
+      <div class="label">КАТАЛОГ</div>
+      <h2>Категории</h2>
+    </div>
+
+    <input
+      class="search"
+      id="search"
+      placeholder="Поиск товара..."
+      oninput="renderProducts()"
+    >
+
+  </div>
+
+
+  <div class="categories">
+
+    <button class="category active" onclick="setCategory('', this)">
+      📦 Все
+    </button>
+
+    <button class="category" onclick="setCategory('games', this)">
+      🎮 Игры
+    </button>
+
+    <button class="category" onclick="setCategory('software', this)">
+      💻 Софт
+    </button>
+
+    <button class="category" onclick="setCategory('social', this)">
+      💬 Соцсети
+    </button>
+
+    <button class="category" onclick="setCategory('subscriptions', this)">
+      ⭐ Подписки
+    </button>
+
+  </div>
+
+
+  <div class="products" id="products"></div>
+
+</section>
+
+
+<div class="dark-section" id="about">
+
+  <section class="dark-inner">
+
+    <div class="label">NOVA MARKET</div>
+
+    <h2>
+      Платформа готова к развитию
+    </h2>
+
+    <div class="features">
+
+      <div class="feature">
+        <b>01</b>
+        <h3>Пользователи</h3>
+        <p>
+          Покупатели и продавцы,
+          профили и авторизация.
+        </p>
+      </div>
+
+      <div class="feature">
+        <b>02</b>
+        <h3>Каталог</h3>
+        <p>
+          Категории, поиск,
+          карточки и цены.
+        </p>
+      </div>
+
+      <div class="feature">
+        <b>03</b>
+        <h3>Заказы</h3>
+        <p>
+          Создание заказов и
+          статусы сделок.
+        </p>
+      </div>
+
+      <div class="feature">
+        <b>04</b>
+        <h3>Платежи</h3>
+        <p>
+          Архитектура подготовлена
+          для подключения API.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<footer>
+  © 2026 NOVA Market
+</footer>
+
+
+<div class="modal hidden" id="modal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeAuth()">×</button>
+
+    <div class="label">
+      NOVA ACCOUNT
+    </div>
+
+    <h2 id="authTitle">
+      Вход
+    </h2>
+
+    <button class="google full">
+      G&nbsp;&nbsp; Продолжить с Google
+    </button>
+
+    <p style="text-align:center;color:#999">
+      или
+    </p>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email"
+    >
+
+    <input
+      id="phone"
+      placeholder="Номер телефона"
+    >
+
+    <button
+      class="dark full"
+      onclick="demoRegister()"
+    >
+      Продолжить
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const products = [
+  {
+    title: "Игровой цифровой товар",
+    category: "games",
+    price: 499,
+    seller: "DemoShop",
+    icon: "🎮"
+  },
+  {
+    title: "Премиум подписка",
+    category: "subscriptions",
+    price: 799,
+    seller: "DemoStore",
+    icon: "⭐"
+  },
+  {
+    title: "Цифровой пакет",
+    category: "software",
+    price: 999,
+    seller: "NovaSeller",
+    icon: "💻"
+  }
+];
+
+let selectedCategory = "";
+
+function renderProducts() {
+
+  const query =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
+
+  const list = products.filter(product => {
+
+    const categoryOk =
+      !selectedCategory ||
+      product.category === selectedCategory;
+
+    const searchOk =
+      product.title
+        .toLowerCase()
+        .includes(query);
+
+    return categoryOk && searchOk;
+
+  });
+
+  document.getElementById("products").innerHTML =
+    list.map(product => `
+
+      <article class="product">
+
+        <div class="product-image">
+          ${product.icon}
+        </div>
+
+        <h3>
+          ${product.title}
+        </h3>
+
+        <div class="muted">
+          ${product.seller}
+          · <span style="color:#20bd63">
+            ● онлайн
+          </span>
+        </div>
+
+        <div class="product-price">
+          ${product.price.toLocaleString("ru-RU")} ₽
+        </div>
+
+        <button
+          class="dark buy"
+          onclick="buyProduct('${product.title}')"
+        >
+          Купить
+        </button>
+
+      </article>
+
+    `).join("");
+
+}
+
+
+function setCategory(category, button) {
+
+  selectedCategory = category;
+
+  document
+    .querySelectorAll(".category")
+    .forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+  button.classList.add("active");
+
+  renderProducts();
+}
+
+
+function goCatalog() {
+
+  document
+    .getElementById("catalog")
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+
+}
+
+
+function openAuth(register) {
+
+  document
+    .getElementById("authTitle")
+    .textContent =
+      register ? "Регистрация" : "Вход";
+
+  document
+    .getElementById("modal")
+    .classList.remove("hidden");
+
+}
+
+
+function closeAuth() {
+
+  document
+    .getElementById("modal")
+    .classList.add("hidden");
+
+}
+
+
+function demoRegister() {
+
+  alert(
+    "Демо-режим. Реальные Google OAuth, SMS и email подключаются на сервере."
+  );
+
+}
+
+
+function buyProduct(name) {
+
+  alert(
+    "Вы выбрали: " +
+    name +
+    "\\n\\nСледующий этап — подключение настоящей оплаты."
+  );
+
+}
+
+
+renderProducts();
+
+</script>
+
+</body>
+</html>
